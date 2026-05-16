@@ -1,18 +1,18 @@
 :root {
-  --maroon-primary: #800000;
-  --maroon-dark: #4d0000;
-  --maroon-light: #b30000;
-  --gold-primary: #FFD700;
-  --gold-dark: #b39700;
-  --gold-light: #ffe44d;
+  --maroon-primary: #1a4d2e; /* Now Dark Green */
+  --maroon-dark: #11321d;
+  --maroon-light: #4f6f52;
+  --gold-primary: #4f6f52; /* Sage Green */
+  --gold-dark: #1a4d2e;
+  --gold-light: #c5d8d1;
   --bg-color: #f8f9fa;
-  --text-color: #333333;
-  --text-muted: #666666;
-  --glass-bg: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.3);
+  --text-color: #1a4d2e;
+  --text-muted: #4f6f52;
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(26, 77, 46, 0.1);
   --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
-  --shadow-md: 0 10px 15px rgba(0,0,0,0.1);
-  --shadow-lg: 0 20px 25px rgba(0,0,0,0.15);
+  --shadow-md: 0 10px 15px rgba(26, 77, 46, 0.1);
+  --shadow-lg: 0 20px 25px rgba(26, 77, 46, 0.15);
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Inter', sans-serif;
 }
@@ -106,7 +106,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-gold {
   background-color: var(--gold-primary);
-  color: var(--maroon-dark);
+  color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
   font-weight: 700;

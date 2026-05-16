@@ -3,13 +3,14 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Institution {
-  id              Int      @id @default(1)
+  id              Int      @id @default(autoincrement())
   name            String
+  subtitle        String   @default("Dedicated to excellence in Islamic and modern education.")
   address         String
   contactNumbers  String
   email           String   @default("info@madrasa.com")

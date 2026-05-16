@@ -2,13 +2,15 @@
 
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import styles from './admin.module.css';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
   const router = useRouter();
+
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -18,6 +20,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }
   }, [status, router, session]);
 
+  // Close sidebar on navigation
+  useEffect(() => {
+    setIsOpen(false);
+  }, [router]);
+
   if (status === 'loading') {
     return <div className={styles.loading}>Loading...</div>;
   }
@@ -25,7 +32,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   if (status === 'authenticated' && (session?.user as any)?.role === 'ADMIN') {
     return (
       <div className={styles.adminLayout}>
-        <aside className={styles.sidebar}>
+        {/* Mobile Header */}
+        <div className={styles.mobileHeader}>
+          <h2>Admin Portal</h2>
+          <button className={styles.menuButton} onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? '✕' : '☰'}
+          </button>
+        </div>
+
+        {/* Overlay */}
+        <div 
+          className={`${styles.overlay} ${isOpen ? styles.overlayVisible : ''}`} 
+          onClick={() => setIsOpen(false)}
+        />
+
+        <aside className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ''}`}>
           <div className={styles.sidebarHeader}>
             <h2>Admin Portal</h2>
           </div>

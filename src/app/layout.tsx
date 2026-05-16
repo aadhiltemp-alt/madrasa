@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"], variable: '--font-body' });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: '--font-heading' });
 
 export const metadata: Metadata = {
-  title: "Madrasa Management System",
+  title: "Rahmaniyya Madrasa",
   description: "A premium management portal for institutions",
 };
 

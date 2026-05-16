@@ -3,6 +3,7 @@ import { createTeacher, deleteTeacher, updateTeacherUsernamePassword } from '@/a
 import { updateTeacher } from '@/app/actions/edit';
 import styles from '../institution/page.module.css';
 import Link from 'next/link';
+import DeleteButton from '@/app/components/DeleteButton';
 
 export const revalidate = 0;
 
@@ -59,9 +60,11 @@ export default async function TeacherManagement({ searchParams }: { searchParams
                   </div>
                   <div style={{display: 'flex', gap: '1rem', alignItems: 'flex-start'}}>
                     <Link href={`?editTeacher=${t.id}`} style={{color: 'var(--gold-dark)', fontWeight: '600'}}>Edit Profile</Link>
-                    <form action={deleteTeacher.bind(null, t.id)}>
-                      <button type="submit" style={{background: 'red', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer'}}>Delete</button>
-                    </form>
+                    <DeleteButton 
+                      action={deleteTeacher.bind(null, t.id)} 
+                      confirmMessage={`Are you sure you want to delete ${t.name}?`}
+                      style={{ background: 'red', color: 'white', padding: '0.5rem 1rem', borderRadius: '4px' }}
+                    />
                   </div>
                 </div>
 

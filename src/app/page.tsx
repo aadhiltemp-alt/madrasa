@@ -39,7 +39,7 @@ export default async function Home() {
         <BannerSlider banners={institution.banners} />
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>{institution.name}</h1>
-          <p className={styles.heroSubtitle}>Dedicated to excellence in Islamic and modern education.</p>
+          <p className={styles.heroSubtitle}>{institution.subtitle}</p>
           
           {institution.showCountdown && (
             <div className={styles.countdownBox}>

@@ -106,7 +106,7 @@ export default async function GlobalStudentManagement({
                       <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
                         <Link href={`?query=${query || ''}&classId=${classId || ''}&editStudent=${s.id}`} style={{ color: 'var(--gold-dark)', fontWeight: '600' }}>Edit</Link>
                         <DeleteButton 
-                          action={deleteStudent.bind(null, s.id)} 
+                          action={deleteStudent.bind(null, s.id, s.classId)} 
                           confirmMessage="Are you sure you want to delete this student and all their marks?"
                           style={{ color: '#dc2626' }}
                         />

@@ -6,28 +6,31 @@ export default function DeleteButton({
   label = 'Delete',
   style = {}
 }: { 
-  action: (id: string) => Promise<void>, 
+  action: () => Promise<void>, 
   confirmMessage?: string,
   label?: string,
   style?: React.CSSProperties
 }) {
+  const handleDelete = async () => {
+    if (confirm(confirmMessage)) {
+      await action();
+    }
+  };
+
   return (
-    <form action={action} onSubmit={(e) => {
-      if(!confirm(confirmMessage)) e.preventDefault();
-    }}>
-      <button 
-        type="submit" 
-        style={{ 
-          background: 'none', 
-          border: 'none', 
-          cursor: 'pointer', 
-          fontSize: '0.9rem', 
-          fontWeight: '600',
-          ...style 
-        }}
-      >
-        {label}
-      </button>
-    </form>
+    <button 
+      onClick={handleDelete}
+      style={{ 
+        background: 'none', 
+        border: 'none', 
+        cursor: 'pointer', 
+        fontSize: '0.9rem', 
+        fontWeight: '600',
+        color: 'red',
+        ...style 
+      }}
+    >
+      {label}
+    </button>
   );
 }

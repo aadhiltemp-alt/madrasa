@@ -3,6 +3,7 @@ import styles from './page.module.css';
 import { updateInstitution } from '@/app/actions/institution';
 import { addCommitteeMember, deleteCommitteeMember, updateTeacherPhoto } from '@/app/actions/committee';
 import { addBanner, deleteBanner } from '@/app/actions/banners';
+import DeleteButton from '@/app/components/DeleteButton';
 
 export const revalidate = 0;
 
@@ -60,6 +61,10 @@ export default async function InstitutionConfig() {
             <div className={styles.formGroup}>
               <label className={styles.label}>WhatsApp Number</label>
               <input type="text" name="whatsapp" className={styles.input} defaultValue={institution.whatsapp} required />
+            </div>
+            <div className={styles.formGroup} style={{ gridColumn: '1 / -1' }}>
+              <label className={styles.label}>Hero Subtitle</label>
+              <input type="text" name="subtitle" className={styles.input} defaultValue={institution.subtitle} required />
             </div>
             <div className={styles.formGroup} style={{ gridColumn: '1 / -1' }}>
               <label className={styles.label}>Address</label>
@@ -121,9 +126,12 @@ export default async function InstitutionConfig() {
               <h4 style={{ color: 'var(--maroon-primary)' }}>{member.name}</h4>
               <p style={{ fontSize: '0.9rem', fontWeight: '600' }}>{member.role}</p>
               <p style={{ fontSize: '0.8rem', color: '#666' }}>{member.phone}</p>
-              <form action={deleteCommitteeMember.bind(null, member.id)} style={{ marginTop: '1rem' }}>
-                <button type="submit" style={{ color: 'red', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.8rem' }}>Remove</button>
-              </form>
+              <DeleteButton 
+                action={deleteCommitteeMember.bind(null, member.id)} 
+                confirmMessage={`Remove ${member.name} from committee?`}
+                label="Remove"
+                style={{ color: 'red', fontSize: '0.8rem' }}
+              />
             </div>
           ))}
         </div>
@@ -202,9 +210,11 @@ export default async function InstitutionConfig() {
               />
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontSize: '0.8rem', color: '#666' }}>Order: {banner.order}</span>
-                <form action={deleteBanner.bind(null, banner.id)}>
-                  <button type="submit" style={{ color: 'red', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.8rem' }}>Delete</button>
-                </form>
+                <DeleteButton 
+                  action={deleteBanner.bind(null, banner.id)} 
+                  confirmMessage="Delete this banner image?"
+                  style={{ color: 'red', fontSize: '0.8rem' }}
+                />
               </div>
             </div>
           ))}

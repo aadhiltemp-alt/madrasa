@@ -6,38 +6,31 @@ import BannerSlider from './BannerSlider';
 export const revalidate = 0; // Disable cache for live statistics
 
 export default async function Home() {
-  try {
-    const institution = await prisma.institution.findUnique({
-      where: { id: 1 },
-      include: { 
-        committee: { orderBy: { order: 'asc' } },
-        banners: { orderBy: { order: 'asc' } }
-      }
-    });
-
-    const staff = await prisma.user.findMany({
-      where: { role: 'TEACHER' },
-      include: { assignedClasses: true }
-    });
-
-    const nextExam = await prisma.exam.findFirst({
-      where: { markEntryDeadline: { gte: new Date() } },
-      orderBy: { markEntryDeadline: 'asc' },
-    });
-
-    // Safe fallback if no institution data
-    if (!institution) {
-      return (
-        <div style={{ padding: '2rem', textAlign: 'center', background: '#fffbeb', border: '1px solid #fde68a', margin: '2rem', borderRadius: '8px' }}>
-          <h2 style={{ color: '#92400e' }}>Database Not Seeded</h2>
-          <p>Please ensure you have run the database setup. If you just moved to a new account, check your <strong>DATABASE_URL</strong>.</p>
-        </div>
-      );
+  const institution = await prisma.institution.findUnique({
+    where: { id: 1 },
+    include: { 
+      committee: { orderBy: { order: 'asc' } },
+      banners: { orderBy: { order: 'asc' } }
     }
+  });
+
+  const staff = await prisma.user.findMany({
+    where: { role: 'TEACHER' },
+    include: { assignedClasses: true }
+  });
+
+  const nextExam = await prisma.exam.findFirst({
+    where: { markEntryDeadline: { gte: new Date() } },
+    orderBy: { markEntryDeadline: 'asc' },
+  });
+
+  // Safe fallback if no institution data
+  if (!institution) {
+    return <div>Loading... Please ensure database is seeded.</div>;
+  }
 
   // Calculate target date for countdown (or fallback to end of year)
   const countdownDate = nextExam?.markEntryDeadline || new Date(new Date().getFullYear(), 11, 31);
-  const countdownISO = countdownDate.toISOString();
 
   return (
     <main>
@@ -49,9 +42,10 @@ export default async function Home() {
           
           {institution.showCountdown && (
             <div className={styles.countdownBox}>
-              <h3>Upcoming Exam Result Countdown</h3>
-              <p style={{marginTop: '0.5rem', color: 'var(--text-muted)'}}>{nextExam ? nextExam.name : 'Final Examinations'}</p>
-              <Countdown targetDate={countdownISO} />
+              <p className={styles.countdownText}>
+                {nextExam ? `${nextExam.name} Result Release In:` : 'Results Releasing In:'}
+              </p>
+              <Countdown targetDate={countdownDate} />
             </div>
           )}
         </div>
@@ -162,17 +156,4 @@ export default async function Home() {
       </footer>
     </main>
   );
-  } catch (error: any) {
-    console.error("Home Page Error:", error);
-    return (
-      <div style={{ padding: '2rem', textAlign: 'center', background: '#fef2f2', border: '1px solid #fee2e2', margin: '2rem', borderRadius: '8px' }}>
-        <h2 style={{ color: '#991b1b' }}>Server Connection Error</h2>
-        <p style={{ marginBottom: '1rem' }}>We encountered an error while connecting to the database.</p>
-        <div style={{ background: '#fff', padding: '1rem', borderRadius: '4px', textAlign: 'left', fontSize: '0.8rem', overflow: 'auto' }}>
-          <code>{error?.message || 'Unknown error'}</code>
-        </div>
-        <p style={{ marginTop: '1rem', fontSize: '0.9rem' }}>Tip: Check if your <strong>DATABASE_URL</strong> environment variable is set correctly in Vercel.</p>
-      </div>
-    );
-  }
 }

@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Institution {
+  id              Int      @id @default(1)
+  name            String
+  address         String
+  contactNumbers  String
+  email           String   @default("info@madrasa.com")
+  whatsapp        String   @default("+910000000000")
+  logoUrl         String?
+  heroPhotos      String   // Stored as JSON or comma-separated
+  showCountdown   Boolean  @default(false)
+  
+  committee       CommitteeMember[]
+  banners         Banner[]
+
+  // Stats Counters
+  maleStudents    Int      @default(0)
+  femaleStudents  Int      @default(0)
+  expertFaculty   Int      @default(0)
+}
+
+model CommitteeMember {
+  id            String      @id @default(uuid())
+  name          String
+  role          String
+  phone         String?
+  photoUrl      String?
+  order         Int         @default(0)
+  institutionId Int
+  institution   Institution @relation(fields: [institutionId], references: [id])
+}
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  role      String   // ADMIN, TEACHER
+  name      String
+  phone     String?
+  photoUrl  String?
+
+  // For Teachers
+  assignedClasses Class[]
+}
+
+model Class {
+  id          String    @id @default(uuid())
+  name        String
+  order       Int
+  teachers    User[]    // Assigned teachers
+  students    Student[]
+  subjects    Subject[]
+}
+
+model Subject {
+  id              String  @id @default(uuid())
+  name            String
+  totalMarks      Float
+  passingMarks    Float
+  classId         String
+  class           Class   @relation(fields: [classId], references: [id])
+  marks           Mark[]
+}
+
+model GradingSystem {
+  id                  String @id @default(uuid())
+  grade               String
+  percentageThreshold Float
+}
+
+model Student {
+  id              String  @id @default(uuid())
+  registerNumber  String  @unique
+  name            String
+  dob             DateTime
+  fatherName      String
+  gender          String  @default("MALE") // MALE, FEMALE
+  photoUrl        String?
+  classId         String
+  class           Class   @relation(fields: [classId], references: [id])
+  marks           Mark[]
+}
+
+model Exam {
+  id                  String   @id @default(uuid())
+  name                String
+  markEntryDeadline   DateTime
+  publishResults      Boolean  @default(false)
+  marks               Mark[]
+}
+
+model Mark {
+  id          String   @id @default(uuid())
+  studentId   String
+  student     Student  @relation(fields: [studentId], references: [id])
+  subjectId   String
+  subject     Subject  @relation(fields: [subjectId], references: [id])
+  examId      String
+  exam        Exam     @relation(fields: [examId], references: [id])
+  marksObtained Float
+}
+
+model Banner {
+  id            String      @id @default(uuid())
+  imageUrl      String
+  order         Int         @default(0)
+  institutionId Int
+  institution   Institution @relation(fields: [institutionId], references: [id])
+}

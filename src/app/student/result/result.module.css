@@ -1,0 +1,146 @@
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.printHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.markSheet {
+  background: white;
+  padding: 3rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  margin-bottom: 3rem;
+  color: #333;
+}
+
+.sheetHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid var(--maroon-primary);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  margin-right: 1.5rem;
+}
+
+.headerText h1 {
+  font-size: 2rem;
+  color: var(--maroon-primary);
+  margin-bottom: 0.25rem;
+}
+
+.headerText p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.studentInfo {
+  margin-bottom: 2rem;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.resultsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2.5rem;
+}
+
+.resultsTable th {
+  background: #f8f9fa;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-weight: 700;
+}
+
+.resultsTable td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.totalRow td {
+  font-weight: 800;
+  background: #f1f3f5;
+}
+
+.finalResult {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.resultItem {
+  background: #fdf2f2;
+  border: 1px solid #fbd5d5;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.resultLabel {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--maroon-primary);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.resultValue {
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--maroon-dark);
+}
+
+.signatures {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4rem;
+}
+
+.sigBox {
+  text-align: center;
+  width: 200px;
+}
+
+.sigLine {
+  border-top: 1px solid #333;
+  margin-bottom: 0.5rem;
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+  .container {
+    margin: 0;
+    max-width: 100%;
+  }
+  .markSheet {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+}

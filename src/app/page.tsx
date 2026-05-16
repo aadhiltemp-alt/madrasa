@@ -54,7 +54,7 @@ export default async function Home() {
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
             {publishedExam && (
-              <Link href="/student/result" className="btn-primary" style={{ padding: '1rem 2.5rem', fontSize: '1.25rem', boxShadow: '0 0 20px rgba(184, 134, 11, 0.5)' }}>
+              <Link href="/student" className="btn-primary" style={{ padding: '1rem 2.5rem', fontSize: '1.25rem', boxShadow: '0 0 20px rgba(184, 134, 11, 0.5)' }}>
                 Check Result 🎓
               </Link>
             )}

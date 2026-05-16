@@ -45,7 +45,7 @@ export default async function Home() {
               <p className={styles.countdownText}>
                 {nextExam ? `${nextExam.name} Result Release In:` : 'Results Releasing In:'}
               </p>
-              <Countdown targetDate={countdownDate} />
+              <Countdown targetDate={countdownDate.toISOString()} />
             </div>
           )}
         </div>

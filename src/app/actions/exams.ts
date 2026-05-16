@@ -5,12 +5,19 @@ import { revalidatePath } from 'next/cache';
 
 export async function createExam(formData: FormData) {
   const name = formData.get('name') as string;
-  const deadlineStr = formData.get('markEntryDeadline') as string;
-  const markEntryDeadline = new Date(deadlineStr);
+  const markEntryDeadline = new Date(formData.get('markEntryDeadline') as string);
+  const resultReleaseTimeStr = formData.get('resultReleaseTime') as string;
+  const resultReleaseTime = resultReleaseTimeStr ? new Date(resultReleaseTimeStr) : null;
 
   await prisma.exam.create({
-    data: { name, markEntryDeadline },
+    data: {
+      name,
+      markEntryDeadline,
+      resultReleaseTime,
+      publishResults: false
+    }
   });
+
   revalidatePath('/admin/exams');
 }
 

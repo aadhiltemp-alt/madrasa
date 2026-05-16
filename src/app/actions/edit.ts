@@ -36,11 +36,13 @@ export async function updateExam(formData: FormData) {
   const id = formData.get('id') as string;
   const name = formData.get('name') as string;
   const markEntryDeadline = new Date(formData.get('markEntryDeadline') as string);
+  const resultReleaseTimeStr = formData.get('resultReleaseTime') as string;
+  const resultReleaseTime = resultReleaseTimeStr ? new Date(resultReleaseTimeStr) : null;
   const publishResults = formData.get('publishResults') === 'on';
 
   await prisma.exam.update({
     where: { id },
-    data: { name, markEntryDeadline, publishResults },
+    data: { name, markEntryDeadline, resultReleaseTime, publishResults },
   });
 
   revalidatePath('/admin/exams');

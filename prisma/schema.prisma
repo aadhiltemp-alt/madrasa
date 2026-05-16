@@ -94,6 +94,7 @@ model Exam {
   id                  String   @id @default(uuid())
   name                String
   markEntryDeadline   DateTime
+  resultReleaseTime   DateTime?
   publishResults      Boolean  @default(false)
   marks               Mark[]
 }

@@ -24,6 +24,10 @@ export default async function ExamManagement({ searchParams }: { searchParams: P
               <label className={styles.label}>Mark Entry Deadline</label>
               <input type="datetime-local" name="markEntryDeadline" className={styles.input} required />
             </div>
+            <div>
+              <label className={styles.label}>Result Release Time (For Countdown)</label>
+              <input type="datetime-local" name="resultReleaseTime" className={styles.input} />
+            </div>
             <button type="submit" className="btn-primary">Create Exam</button>
           </form>
         </div>
@@ -35,6 +39,7 @@ export default async function ExamManagement({ searchParams }: { searchParams: P
               <tr style={{borderBottom: '2px solid #eee', textAlign: 'left'}}>
                 <th style={{padding: '0.5rem'}}>Exam Name</th>
                 <th style={{padding: '0.5rem'}}>Deadline</th>
+                <th style={{padding: '0.5rem'}}>Release Time</th>
                 <th style={{padding: '0.5rem'}}>Results Status</th>
                 <th style={{padding: '0.5rem'}}>Actions</th>
               </tr>
@@ -45,6 +50,9 @@ export default async function ExamManagement({ searchParams }: { searchParams: P
                   <tr style={{borderBottom: '1px solid #eee'}}>
                     <td style={{padding: '0.5rem', fontWeight: 'bold'}}>{e.name}</td>
                     <td style={{padding: '0.5rem'}}>{new Date(e.markEntryDeadline).toLocaleString()}</td>
+                    <td style={{padding: '0.5rem'}}>
+                      {e.resultReleaseTime ? new Date(e.resultReleaseTime).toLocaleString() : 'Not Set'}
+                    </td>
                     <td style={{padding: '0.5rem'}}>
                       <span style={{color: e.publishResults ? 'green' : 'red', fontWeight: 'bold'}}>
                         {e.publishResults ? 'Published' : 'Hidden'}
@@ -67,10 +75,10 @@ export default async function ExamManagement({ searchParams }: { searchParams: P
                   </tr>
                   {editExam === e.id && (
                     <tr key={`${e.id}-edit`} style={{background: '#fffbeb'}}>
-                      <td colSpan={4} style={{padding: '1.5rem'}}>
-                        <form action={updateExam} style={{display: 'flex', gap: '1rem', alignItems: 'flex-end'}}>
+                      <td colSpan={5} style={{padding: '1.5rem'}}>
+                        <form action={updateExam} style={{display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'flex-end'}}>
                           <input type="hidden" name="id" value={e.id} />
-                          <div style={{flex: 1}}>
+                          <div style={{flex: '1 1 200px'}}>
                             <label className={styles.label}>Exam Name</label>
                             <input type="text" name="name" defaultValue={e.name} className={styles.input} required />
                           </div>
@@ -82,6 +90,15 @@ export default async function ExamManagement({ searchParams }: { searchParams: P
                               className={styles.input} 
                               defaultValue={new Date(e.markEntryDeadline).toISOString().slice(0, 16)} 
                               required 
+                            />
+                          </div>
+                          <div>
+                            <label className={styles.label}>Release Time</label>
+                            <input 
+                              type="datetime-local" 
+                              name="resultReleaseTime" 
+                              className={styles.input} 
+                              defaultValue={e.resultReleaseTime ? new Date(e.resultReleaseTime).toISOString().slice(0, 16) : ''} 
                             />
                           </div>
                           <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>

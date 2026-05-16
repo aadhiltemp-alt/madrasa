@@ -156,9 +156,17 @@
 
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
 }
 
 .statCard {
@@ -187,6 +195,20 @@
   color: var(--text-muted);
 }
 
+@media (max-width: 768px) {
+  .statCard {
+    padding: 1rem 0.5rem;
+  }
+  .statNumber {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+  }
+  .statLabel {
+    font-size: 0.7rem;
+    line-height: 1.2;
+  }
+}
+
 .committeeSection {
   padding: 5rem 0;
   background-color: #f1f3f5;
@@ -210,6 +232,14 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .committeeGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    padding: 0 0.5rem;
+  }
 }
 
 .committeeCard {
@@ -246,6 +276,45 @@
 
 .committeePhone {
   color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .committeePhoto {
+    height: 120px;
+  }
+  .committeeInfo {
+    padding: 0.75rem 0.25rem;
+  }
+  .committeeName {
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  .committeeRole {
+    font-size: 0.65rem;
+    margin-bottom: 0.25rem;
+  }
+  .committeePhone {
+    font-size: 0.6rem;
+  }
+}
+
+.expandableSection {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.expandableSectionVisible {
+  max-height: 5000px;
+  opacity: 1;
+}
+
+.toggleButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
 }
 
 .footer {

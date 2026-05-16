@@ -5,7 +5,7 @@ import BannerSlider from './BannerSlider';
 import ExpandableSection from './ExpandableSection';
 import Link from 'next/link';
 
-export const revalidate = 0; // Disable cache for live statistics
+export const revalidate = 3600; // Cache for 1 hour, revalidated via revalidatePath on edits
 
 export default async function Home() {
   const institution = await prisma.institution.findUnique({

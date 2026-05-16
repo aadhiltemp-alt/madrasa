@@ -30,7 +30,7 @@ export default function BannerSlider({ banners }: BannerSliderProps) {
         <div
           key={banner.id}
           className={`${styles.slide} ${index === currentIndex ? styles.slideActive : ''}`}
-          style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${banner.imageUrl})` }}
+          style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${banner.imageUrl})` }}
         ></div>
       ))}
       {banners.length > 1 && (
